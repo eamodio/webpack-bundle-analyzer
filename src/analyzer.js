@@ -20,7 +20,8 @@ module.exports = {
 function getViewerData(bundleStats, bundleDir, opts) {
   const {
     logger = new Logger(),
-    excludeAssets = null
+    excludeAssets = null,
+    parserOptions = { sourceType: 'script' }
   } = opts || {};
 
   const isAssetIncluded = createAssetsFilter(excludeAssets);
@@ -77,7 +78,7 @@ function getViewerData(bundleStats, bundleDir, opts) {
       let bundleInfo;
 
       try {
-        bundleInfo = parseBundle(assetFile);
+        bundleInfo = parseBundle(assetFile, parserOptions);
       } catch (err) {
         const msg = (err.code === 'ENOENT') ? 'no such file' : err.message;
         logger.warn(`Error parsing bundle asset "${assetFile}": ${msg}`);

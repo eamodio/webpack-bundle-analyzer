@@ -24,6 +24,7 @@ class BundleAnalyzerPlugin {
       // deprecated
       startAnalyzer: true,
       analyzerUrl: utils.defaultAnalyzerUrl,
+      parserOptions: { sourceType: 'script' },
       ...opts,
       analyzerPort: 'analyzerPort' in opts ? (opts.analyzerPort === 'auto' ? 0 : opts.analyzerPort) : 8888
     };
@@ -109,7 +110,8 @@ class BundleAnalyzerPlugin {
         logger: this.logger,
         defaultSizes: this.opts.defaultSizes,
         excludeAssets: this.opts.excludeAssets,
-        analyzerUrl: this.opts.analyzerUrl
+        analyzerUrl: this.opts.analyzerUrl,
+        parserOptions: this.opts.parserOptions
       });
     }
   }
@@ -119,7 +121,8 @@ class BundleAnalyzerPlugin {
       reportFilename: path.resolve(this.compiler.outputPath, this.opts.reportFilename || 'report.json'),
       bundleDir: this.getBundleDirFromCompiler(),
       logger: this.logger,
-      excludeAssets: this.opts.excludeAssets
+      excludeAssets: this.opts.excludeAssets,
+      parserOptions: this.opts.parserOptions
     });
   }
 
@@ -131,7 +134,8 @@ class BundleAnalyzerPlugin {
       bundleDir: this.getBundleDirFromCompiler(),
       logger: this.logger,
       defaultSizes: this.opts.defaultSizes,
-      excludeAssets: this.opts.excludeAssets
+      excludeAssets: this.opts.excludeAssets,
+      parserOptions: this.opts.parserOptions
     });
   }
 

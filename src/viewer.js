@@ -40,10 +40,11 @@ async function startServer(bundleStats, opts) {
     defaultSizes = 'parsed',
     excludeAssets = null,
     reportTitle,
-    analyzerUrl
+    analyzerUrl,
+    parserOptions = { sourceType: 'script' }
   } = opts || {};
 
-  const analyzerOpts = {logger, excludeAssets};
+  const analyzerOpts = {logger, excludeAssets, parserOptions};
 
   let chartData = getChartData(analyzerOpts, bundleStats, bundleDir);
   const entrypoints = getEntrypoints(bundleStats);
@@ -136,10 +137,11 @@ async function generateReport(bundleStats, opts) {
     bundleDir = null,
     logger = new Logger(),
     defaultSizes = 'parsed',
-    excludeAssets = null
+    excludeAssets = null,
+    parserOptions = { sourceType: 'script' }
   } = opts || {};
 
-  const chartData = getChartData({logger, excludeAssets}, bundleStats, bundleDir);
+  const chartData = getChartData({logger, excludeAssets, parserOptions}, bundleStats, bundleDir);
   const entrypoints = getEntrypoints(bundleStats);
 
   if (!chartData) return;
@@ -165,9 +167,9 @@ async function generateReport(bundleStats, opts) {
 }
 
 async function generateJSONReport(bundleStats, opts) {
-  const {reportFilename, bundleDir = null, logger = new Logger(), excludeAssets = null} = opts || {};
+  const {reportFilename, bundleDir = null, logger = new Logger(), excludeAssets = null, parserOptions = { sourceType: 'script' }} = opts || {};
 
-  const chartData = getChartData({logger, excludeAssets}, bundleStats, bundleDir);
+  const chartData = getChartData({logger, excludeAssets, parserOptions}, bundleStats, bundleDir);
 
   if (!chartData) return;
 
